@@ -1,0 +1,110 @@
+<% include header %>
+
+<div id="admin-exp-main-container" class="container main-container">
+    <div class="row">
+        <p id="experiment-alert" class="alert display-none"></p>
+    </div>
+
+    <div id="create-experiment-container" class="row">
+        <div id="create-experiment-container-title" class="col-md-3">
+            <form role="form" id="title-form">
+                <div class="form-group">
+                    <label for="title" class="control-label">TITLE</label>
+                    <input type="title" id="inputTitle" placeholder="Enter Title" class="form-control">
+                </div>
+            </form>
+        </div>
+
+        <div id="create-experiment-container-url" class="col-md-3">
+            <form role="form" id="url-form">
+                <div class="form-group">
+                    <label for="url" class="control-label">URL</label>
+                    <input type="url" id="inputUrl" placeholder="Enter Url" class="form-control">
+                </div>
+            </form>
+        </div>
+
+        <div id="create-experiment-container-type" class="col-md-2">
+            <div class="text"><label>TYPE</label></div>
+            <div data-toggle="buttons" id="type-btns" class="btn-group">
+
+                <label class="btn btn-default">
+                    <input type="radio" name="site" id="site-btn" value="site">SITE
+                </label>
+
+                <label class="btn btn-default">
+                    <input type="radio" name="video" id="video-btn" value="video">VIDEO
+                </label>
+
+            </div>
+        </div>
+
+        <div id="create-experiment-container-date" class="col-md-2">
+            <form role="form" id="date-form">
+                <div class="form-group"><label for="date" class="control-label">DATE</label>
+                    <input type="date"
+                           id="input-date"
+                           placeholder="Enter Date"
+                           class="form-control">
+                </div>
+            </form>
+        </div>
+
+        <div id="create-experiment-container-btn" class="col-md-2">
+            <button type="button" id="create-experiment-btn" class="btn btn-primary">CREATE</button>
+        </div>
+    </div>
+
+    <div id="admin-create-experiment-list-container" class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>TITLE</th>
+                    <th>URL</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <%
+                    for(var i in experiments){
+
+                        var experiment = experiments[i];
+
+                        var id    = experiment._id;
+                        var title = experiment.title;
+                        var url   = experiment.url;
+                        var type  = experiment.type;
+                        var date  = experiment.date;
+
+                %>
+                <tr id="<%= id %>">
+                    <td class="experiment-title"> <%= title %> </td>
+                    <td class="experiment-url">   <%=  url  %>   </td>
+                    <td class="experiment-type">  <%=  type %>  </td>
+                    <td class="experiment-date">  <%=  date %> </td>
+                    <td class="experiment-edit admin-experiment-list-btn">
+                        <button type="button" class="btn btn-primary btn-xs experiment-edit" data-id="<%= id %>">EDIT</button>
+                    </td>
+                    <td class="experiment-delete admin-experiment-list-btn">
+                        <button type="button" class="btn btn-danger btn-xs experiment-delete-btn" data-id="<%= id %>">DELETE</button>
+                    </td>
+                </tr>
+                <%
+                    }
+                 %>
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="../bootstrap/js/bootstrap.js"></script>
+<script src="../scripts/admin/experimentView.js"></script>
+
+<% include footer %>
