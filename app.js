@@ -68,6 +68,12 @@ app.get('/admin/experiment', admin.adminExperiment(db));
 app.post('/admin/experiment-create', admin.adminExperimentCreate(db));
 
 // ---------
+//    put
+// ---------
+
+app.put('/admin/experiment-update/:id', admin.updateExperiment(db));
+
+// ---------
 //  delete
 // ---------
 

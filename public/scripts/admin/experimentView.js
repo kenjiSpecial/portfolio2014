@@ -26,19 +26,24 @@
 
         text : {
             miss    : 'MISSING',
-            success : 'SUCCESS!'
+            success : 'SUCCESS!',
+            update  : 'UPDATE!'
         },
 
         paramsTemplate : _.template('title=<%= title %>&url=<%= url %>&type=<%= type %>&date=<%= date %>'),
         deleteTemplate : _.template('id=<%= id %>'),
+        editTemplate   : new EJS({ url: '../scripts/admin/experimentEditTemplate.ejs' }),
+        updateTemplate : new EJS({ url: '../scripts/admin/experimentUpdateTemplate.ejs' }),
 
         events : {
             'click #create-experiment-btn' : 'onCreateExperiment',
-            'click .experiment-delete-btn'     : 'onDeleteExperiment',
+            'click .experiment-delete-btn' : 'onDeleteExperiment',
+            'click .experiment-edit-btn'   : 'onEditExperiment',
+            'click .experiment-update-btn' : 'onUpdateExperiment'
         },
 
         initialize : function(){
-            _.bindAll(this, 'onSuccess', 'onDeleteSuccess');
+            _.bindAll(this, 'onSuccess', 'onDeleteSuccess', 'onUpdateSuccess');
 
 
         },
@@ -159,6 +164,51 @@
 
         },
 
+        onEditExperiment : function(event){
+            // change the content
+            var targetTable = event.target.parentNode.parentNode;
+
+            var id    = targetTable.getAttribute('id');
+            var title = (targetTable.querySelector('.experiment-title').innerHTML).replace(/ /g, '');
+            var url   = (targetTable.querySelector('.experiment-url').innerHTML).replace(/ /g, '');
+            var type  = (targetTable.querySelector('.experiment-type').innerHTML).replace(/ /g, '');
+            var date  = (targetTable.querySelector('.experiment-date').innerHTML).replace(/ /g, '');
+
+
+           var HTML = this.editTemplate.render({ id: id, title: title, url: url, type: type, date: date });
+            targetTable.innerHTML = HTML;
+
+        },
+
+        onUpdateExperiment : function(event){
+
+            var targetTable = event.target.parentNode.parentNode;
+
+            var id           = targetTable.getAttribute('id');
+            var title        = targetTable.querySelector('#inputTitle').value;
+            var url          = targetTable.querySelector('#inputUrl').value;
+            var selectedType = targetTable.querySelector('.active input').value;
+            var date         = targetTable.querySelector('#edit-experiment-input-date').value;
+
+            this.selectedID = id;
+            this.selectedTable = document.getElementById(id);
+
+            var params = this.paramsTemplate({
+                title : title,
+                url   : url,
+                date  : date,
+                type  : selectedType
+            });
+
+            var request = new XMLHttpRequest();
+            request.onload = this.onUpdateSuccess;
+            var directoryToPost = './experiment-update/' + id;
+            request.open('PUT', directoryToPost , true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(params);
+
+        },
+
         // ================
         //  on load method
         // ================
@@ -173,14 +223,42 @@
 
             setTimeout(function(){
                 this.alert.classList.remove(this.textAlertSuccess);
-                this.alert.classList.add(this.textDisplayNone)
+                this.alert.classList.add(this.textDisplayNone);
             }.bind(this), 3000);
         },
+
 
         onSuccess : function(response){
             this.alert.innerHTML = this.text.success;
             this.alert.classList.add(this.textAlertSuccess);
             this.alert.classList.remove(this.textDisplayNone)
+        },
+
+        onUpdateSuccess : function( response){
+
+            var target = JSON.parse(response.target.response);
+
+            // showing update
+            var html = this.updateTemplate.render({
+                id    : this.selectedID,
+                title : target.title,
+                url   : target.url,
+                type  : target.type,
+                date  : target.date
+            });
+
+            this.selectedTable.innerHTML = html;
+
+            this.alert.innerHTML = this.text.update;
+            this.alert.classList.add(this.textAlertSuccess);
+            this.alert.classList.remove(this.textDisplayNone);
+
+            var self = this;
+            setTimeout(function(){
+                self.alert.classList.remove(self.textAlertSuccess);
+                self.alert.classList.add(self.textDisplayNone);
+            }, 3000);
+
         }
 
     });

@@ -81,3 +81,34 @@ exports.adminExperimentDelete = function(db){
 
     }
 };
+
+// ============
+//      put
+// ============
+
+exports.updateExperiment = function(db){
+
+    return function(req, res){
+        var id = req.params.id;
+        var post = req.body;
+        console.log(post);
+
+        //delete post._id;
+
+        console.log('Updating wine: ' + id);
+        console.log(post);
+
+        var collection = db.get('experiment');
+        collection.update({'_id' : id}, post, function(err, result){
+            if(err){
+                res.send({'error':'An error has occurred - ' + err});
+            }else{
+                console.log('' + result + ' update');
+                // res.send( req.body, req.params.id );
+                res.send( req.body );
+            }
+        });
+
+    }
+
+}
