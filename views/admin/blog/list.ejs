@@ -1,0 +1,58 @@
+<% include ../header.ejs %>
+
+<div id="admin-blog-list-container" class="container main-container">
+
+    <div id="admin-create-blog-container" class="row">
+        <div class="col-md-12 create-blog-cols">
+            <a href="./blogcreate" id="create-blog"><button type="button" class="btn btn-primary blog-create-btn">CREATE</button></a>
+        </div>
+    </div>
+
+    <div id="admin-create-blog-list-container" class="row">
+
+        <table class="table table-hover">
+
+            <thead>
+                <tr>
+                    <th>TITLE</th>
+                    <th>Date</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <%
+                for(var i in blogs) {
+                    var blog = blogs[i];
+
+                    var id    = blog._id;
+                    var title = blog.title;
+                    var date  = blog.date;
+
+                    var outputDate = new Date(date);
+                %>
+                    <tr id="<%= id %>">
+                        <td class="blog-title"><%= title %></td>
+                        <td class="blog-url">  <%= (1 + outputDate.getMonth()) %>-<%=  outputDate.getDate() %>-<%=  outputDate.getFullYear() %> </td>
+
+                        <td class="blog-edit admin-experiment-list-btn">
+                            <a href="./blog/<%= id %>"><button type="button" class="btn btn-primary btn-xs blog-edit-btn" data-id="<%= id %>">EDIT</button></a>
+                        </td>
+
+                        <td class="blog-delete admin-experiment-list-btn">
+                            <button type="button" class="btn btn-danger btn-xs blog-delete-btn" data-id="<%= id %>">DELETE</button>
+                        </td>
+
+                    </tr>
+                <% } %>
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+<script src="../bootstrap/js/bootstrap.js"></script>
+
+<% include ../footer.ejs %>

@@ -28,13 +28,44 @@
         </div>
 
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="#">HOME</a></li>
-                <li><a href="#">ABOUT</a></li>
-                <li><a href="#">WORKS</a></li>
-                <li><a href="#">EXPERIMENTS</a></li>
-                <li><a href="#">BLOG</a></li>
-                <li><a href="#">BOOK_MARK</a></li>
+            <ul class="nav navbar-nav navbar-static-top">
+
+                <% if(page == 'home'){ %>
+                    <li id="admin-home" class="active"><a href="./home">HOME</a></li>
+                <% }else{ %>
+                    <li id="admin-home"><a href="./home">HOME</a></li>
+                <% }%>
+
+                <% if(page == 'about'){ %>
+                    <li id="admin-about" class="active"><a href="blog">ABOUT</a></li>
+                <% }else{ %>
+                    <li id="admin-about"><a href="blog">ABOUT</a></li>
+                <% } %>
+
+                <% if(page == 'work'){ %>
+                    <li id="admin-work" class="active"><a href="./work">WORKS</a></li>
+                <% }else{ %>
+                    <li id="admin-work"><a href="./work">WORKS</a></li>
+                <% } %>
+
+                <% if(page == 'experiment'){ %>
+                    <li id="admin-experiment" class="active"><a href="./experiment">EXPERIMENTS</a></li>
+                <% }else{ %>
+                    <li id="admin-experiment"><a href="./experiment">EXPERIMENTS</a></li>
+                <% } %>
+
+                <% if(page == 'blog'){ %>
+                    <li id="admin-blog" class="active"><a href="./blog">BLOG</a></li>
+                <% }else{ %>
+                    <li id="admin-blog"><a href="./blog">BLOG</a></li>
+                <% } %>
+
+                <% if(page == 'bookmark'){ %>
+                    <li id="admin-bookmark" class="active"><a href="./bookmark">BOOKMARK</a></li>
+                <% }else{ %>
+                    <li id="admin-bookmark"><a href="./bookmark">bookmark</a></li>
+                <% } %>
+
             </ul>
         </div>
     </div>

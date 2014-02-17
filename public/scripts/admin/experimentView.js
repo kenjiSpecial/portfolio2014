@@ -44,8 +44,6 @@
 
         initialize : function(){
             _.bindAll(this, 'onSuccess', 'onDeleteSuccess', 'onUpdateSuccess');
-
-
         },
 
         // =====================
@@ -258,9 +256,7 @@
                 self.alert.classList.remove(self.textAlertSuccess);
                 self.alert.classList.add(self.textDisplayNone);
             }, 3000);
-
         }
-
     });
 
     var adminExperimentView = new AdminExperimentView();

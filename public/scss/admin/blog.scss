@@ -1,0 +1,45 @@
+@import "common";
+$WIDTH : 1140px;
+
+#admin-blog-list-container{
+  .col-md-12{
+    padding: 0;
+    text-align: right;
+    margin-bottom: 20px;
+  }
+}
+
+#admin-blog-create-container{
+  margin-bottom: 60px;
+
+    .form-group{
+      margin-bottom: 30px;
+
+        #blog-image{
+          margin-left: 0;
+          margin-right: 0;
+          padding: 0;
+        }
+    }
+}
+
+#blog-album-dialog{
+  .blog-thumbnail{
+
+    &:hover{
+      background: #ddd;
+    }
+
+    &.selected{
+      a{
+        cursor: default;
+      }
+
+      background: #999;
+      &:hover{
+        background: #999;
+      }
+    }
+
+  }
+}
