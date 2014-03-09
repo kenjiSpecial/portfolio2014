@@ -10,7 +10,7 @@ angular.module('myApp.controllers', []).
       url: '/api/name'
     }).
     success(function (data, status, headers, config) {
-      $scope.name = data.name;
+            $scope.name = data.name;
     }).
     error(function (data, status, headers, config) {
       $scope.name = 'Error!';
@@ -19,9 +19,10 @@ angular.module('myApp.controllers', []).
   }).
   controller('MyCtrl1', function ($scope) {
     // write Ctrl here
+        //alert('MyCtrl1')
 
   }).
   controller('MyCtrl2', function ($scope) {
     // write Ctrl here
-
+        //alert('MyCtrl2');
   });

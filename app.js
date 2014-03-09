@@ -3,13 +3,28 @@
  * Module dependencies
  */
 
-var express = require('express'),
-  routes = require('./routes'),
-  api = require('./routes/api'),
-  http = require('http'),
-  path = require('path');
+var express = require('express');
+
+var routes = require('./routes');
+var api = require('./routes/api');
+var admin = require('./routes/admin');
+
+var http = require('http');
+var path = require('path');
+var compass = require('node-compass');
 
 var app = module.exports = express();
+
+app.configure(function() {
+
+    app.use(compass({
+        sass : 'scss',
+        css  : 'styles'
+    }));
+
+    app.use( express.static( path.join(__dirname, 'public') ) );
+    app.use( express.bodyParser() );
+});
 
 /**
  * Configuration
@@ -45,6 +60,11 @@ if (app.get('env') === 'production') {
 // serve index and view partials
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
+
+app.get('/admin', admin.index);
+//app.get('/admin/*', admin.index);
+
+
 
 // JSON API
 app.get('/api/name', api.name);

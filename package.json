@@ -1,8 +1,17 @@
 {
-  "name": "Portfolio 2014 by Kenji Saito",
-  "version": "0.0.1",
-  "dependencies": {
-    "express": "~3.2.6",
-    "ejs" : "*"
-  }
+    "name": "application-portfolio-2014",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "3.4.8",
+        "ejs": "*",
+        "node-compass": "*",
+        "mongodb": "*",
+        "monk": "*",
+        "socket.io": "*",
+        "markdown" : "*"
+    }
 }
