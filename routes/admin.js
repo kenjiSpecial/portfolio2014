@@ -1,3 +1,3 @@
 exports.index = function(req, res){
-    res.render('admin/index');
+    res.render('templates/index');
 };
