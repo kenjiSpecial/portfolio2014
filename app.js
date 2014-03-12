@@ -61,9 +61,19 @@ if (app.get('env') === 'production') {
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
-app.get('/admin', admin.index);
-//app.get('/admin/*', admin.index);
+// =========
+//   admin
+// =========
 
+// get
+app.get('/admin', admin.index);
+app.get('/admin/experiment', admin.getExperiment);
+
+// post
+app.post('/admin/create-experiment', admin.createExperiment);
+
+// put
+app.put('/admin/update-experiment/:id', admin.updateExperiment);
 
 
 // JSON API

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" ng-app="myApp" class="ng-scope">
+<head>
+    <meta charset="UTF-8">
+    <title>admin/kenji-special.info portfolio</title>
+    <link rel="stylesheet" href="/styles/bootstrap.css"/>
+    <link rel="stylesheet" href="/styles/admin/main.css"/>
+
+    <base href="/admin/" />
+</head>
+<body>
+
+
+<header id="admin-header" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-static-top">
+
+                <li id="admin-home"><a href="#/home">HOME</a></li>
+                <li id="admin-about"><a href="#/blog">ABOUT</a></li>
+                <li id="admin-work"><a href="#/work">WORKS</a></li>
+                <li id="admin-experiment"><a href="#/experiment">EXPERIMENT</a></li>
+                <li id="admin-bookmark"><a href="#/bookmark">bookmark</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+</header>
+
+<div ng-controller="AppCtrl" class="ng-scope">
+    <div id="admin-main-container" class="container main-container" ng-view>
+
+    </div>
+</div>
+
+
+<script src="/admin/js/lib/angular/angular.js"></script>
+<!--<script src="/js/lib/angular/angular-resource.js"></script>-->
+<script src="/admin/js/app.js"></script>
+<script src="/admin/js/services.js"></script>
+<script src="/admin/js/controllers.js"></script>
+<script src="/admin/js/filters.js"></script>
+<script src="/admin/js/directives.js"></script>
+
+<script src="/vendors/jquery/dist/jquery.js"></script>
+<script src="/vendors/bootstrap/js/bootstrap.js"></script>
+
+</body>
+</html>

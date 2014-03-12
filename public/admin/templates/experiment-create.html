@@ -1,0 +1,115 @@
+<div id="admin-exp-main-container" class="container main-container">
+    <div class="row">
+        <p id="experiment-alert" class="alert alert-danger" ng-class="alert" >It didn't create the new experiment form.</p>
+    </div>
+
+    <div id="create-experiment-container" class="row">
+        <div id="create-experiment-container-title" class="col-md-3">
+            <form role="form" id="title-form" ng-class="alertTitle">
+                <div class="form-group">
+                    <label for="title" class="control-label">TITLE</label>
+                    <input type="title" id="inputTitle" placeholder="Enter Title" class="form-control" ng-model="title">
+                </div>
+            </form>
+        </div>
+
+        <div id="create-experiment-container-url" class="col-md-3">
+            <form role="form" id="url-form" ng-class="alertUrl">
+                <div class="form-group">
+                    <label for="url" class="control-label">URL</label>
+                    <input type="title" id="inputUrl" placeholder="Enter URL" class="form-control" ng-model="url">
+                </div>
+            </form>
+        </div>
+
+        <div id="create-experiment-container-type" class="col-md-2" ng-class="alertType">
+            <div class="text"><label>TYPE</label></div>
+            <div data-toggle="buttons" id="type-btns" class="btn-group">
+
+                <label class="btn btn-default" ng-click="toggleSiteClick()">
+                    <input type="radio" name="site" id="site-btn" value="site">SITE
+                </label>
+
+                <label class="btn btn-default" ng-click="toggleVideoClick()">
+                    <input type="radio" name="video" id="video-btn" value="video">VIDEO
+                </label>
+            </div>
+        </div>
+
+        <div id="create-experiment-container-date" class="col-md-2">
+            <form role="form" id="date-form" ng-class="alertDate">
+                <div class="form-group"><label for="date" class="control-label">DATE</label>
+                    <input type="date"
+                           id="input-date"
+                           placeholder="Enter Date"
+                           class="form-control" ng-model="date">
+                </div>
+            </form>
+        </div>
+
+        <div id="create-experiment-container-btn" class="col-md-2">
+            <button type="button" id="create-experiment-btn" class="btn btn-primary" ng-click="experimentCreate(title, url, date)">CREATE</button>
+        </div>
+    </div>
+
+    <div id="admin-create-experiment-list-container" class="row">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>TITLE</th>
+                <th>URL</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tr ng-repeat="experiment in experiments" ng-class="experiment.edit" class="experiment">
+                <td class="experiment-title">
+                    <div class="view">{{experiment.title}}</div>
+                    <div class="edit-input">
+                        <input type="text" class="form-control" ng-model="experiment.title" value="experiment.title" ng-model="experiment.title">
+                    </div>
+                </td>
+                <td class="experiment-url">
+                    <div class="view">{{experiment.url}}</div>
+                    <div class="edit-input">
+                        <input type="text" class="form-control" ng-model="experiment.url" value="experiment.url" ng-model="experiment.url">
+                    </div>
+                </td>
+                <td class="experiment-type">
+                    <div class="view">{{experiment.type}}</div>
+                    <div class="edit-input">
+                        <div data-toggle="buttons" class="btn-group">
+
+                            <label class="btn btn-default" ng-click="toggleExpSiteClick(experiment)" ng-class="experiment.siteType">
+                                <input type="radio" name="site" value="site">SITE
+                            </label>
+
+                            <label class="btn btn-default" ng-click="toggleExpVideoClick(experiment)" ng-class="experiment.videoType">
+                                <input type="radio" name="video" value="video">VIDEO
+                            </label>
+                        </div>
+                    </div>
+                </td>
+                <td class="experiment-date">
+                    <div class="view">{{experiment.date}}</div>
+                    <div class="edit-input">
+                        <input type="date"
+                               class="form-control" ng-model="experiment.date">
+                    </div>
+                </td>
+                <td class="experiment-edit admin-experiment-list-btn">
+                    <button type="button" class="btn btn-primary btn-xs experiment-edit-btn" data-id="{{ experiment._id }}" ng-click="experimentEdit(experiment._id, experiment)">EDIT</button>
+                    <button type="button" class="btn btn-primary btn-xs experiment-update-btn" data-id="{{ experiment._id }}" ng-click="experimentUpdate(experiment._id, experiment)">Update</button>
+                </td>
+                <td class="experiment-delete admin-experiment-list-btn">
+                    <button type="button" class="btn btn-danger btn-xs experiment-delete-btn" data-id="{{ experiment._id }}">DELETE</button>
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+#create-experiment-btn{
+  margin-top: 24px;
+}
+
+#admin-create-experiment-list-container{
+  .experiment{
+
+
+    .edit-input{
+      display: none;
+      height: 0;
+    }
+
+    .view{
+      display: block;
+    }
+
+    .experiment-update-btn{
+      display: none;
+    }
+
+    .experiment-edit-btn{
+      display: block;
+    }
+
+    &.edit-show{
+      .view{
+        display: none;
+      }
+
+      .edit-input{
+        display: block;
+        height: 30px;
+      }
+
+      .experiment-delete{
+        display: none;
+      }
+
+      .experiment-update-btn{
+        margin-top: 5px;
+        display: block;
+      }
+
+      .experiment-edit-btn{
+        display: none;
+
+      }
+    }
+  }
+}
