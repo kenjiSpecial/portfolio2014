@@ -28,7 +28,19 @@ angular.module('myApp.controllers', []).
     }).
     controller('experimentCtrl', function ($scope, $http) {
         var type;
-        $scope.alert = 'hide';
+        $scope.alert   = 'hide';
+        $scope.created = 'hide';
+        $scope.updated  = 'hide';
+
+        $scope.orderProp = 'created';
+
+        var hideCreated = function(){
+            $scope.created = 'hide';
+        };
+
+        var hideUpdated = function(){
+            $scope.updated = 'hide';
+        }
 
         $scope.experimentCreate = function (title, url, date) {
             var inputStatus = false;
@@ -68,14 +80,11 @@ angular.module('myApp.controllers', []).
                 $scope.alert = 'hide';
             }
 
-
-            var dataObject = {title: title, type: type, url: url, date: date};
+            var created = +new Date();
+            var dataObject = {title: title, type: type, url: url, date: date, created: created};
             $http({method: 'POST', url: '/admin/create-experiment', data: dataObject})
                 .success(function (data, status) {
-                    // todo:: add method for post success.
-                    console.log('success:');
-                    console.log(data);
-                    console.log(status);
+                    $scope.created = '';
 
                     $scope.url = "";
                     $scope.title = "";
@@ -83,6 +92,12 @@ angular.module('myApp.controllers', []).
 
                     var angularType = angular.element(document.querySelector('.active'));
                     angularType.removeClass('active');
+
+                    $scope.experiments.push(dataObject);
+
+                    setTimeout(function(){
+                        $scope.$apply(hideCreated);
+                    }, 3000);
                 })
                 .error(function (data, status) {
                     // todo:: add method for post error.
@@ -128,21 +143,20 @@ angular.module('myApp.controllers', []).
             var url   = experiment.url;
             var type  = experiment.type;
             var date  = experiment.date;
+            var created = experiment.created;
 
-            console.log(title , url , type, date);
 
-            var dataObject = {title: title, type: type, url: url, date: date};
+            var dataObject = {title: title, type: type, url: url, date: date, created: created};
             var urlString = '/admin/update-experiment/' + id;
             $http({method: 'PUT', url: urlString, data: dataObject})
                 .success(function (data, status) {
-                    // todo:: add method for post success.
-                    console.log('success:');
-                    console.log(data);
-                    console.log(status);
-
+                    $scope.updated = '';
 
                     experiment.edit = '';
 
+                    setTimeout(function(){
+                        $scope.$apply(hideUpdated);
+                    }, 3000);
                 })
                 .error(function (data, status) {
                     // todo:: add method for post error.
@@ -150,6 +164,29 @@ angular.module('myApp.controllers', []).
                     console.log(data);
                     console.log(status);
                 });
+        };
+
+        $scope.experimentDelete = function(experiment){
+            var id = experiment._id;
+
+            var length = $scope.experiments.length;
+            for(var i = 0; i < length; i++){
+                var $experiment = $scope.experiments[i];
+                if($experiment == experiment){
+
+                    if(i+1 < length){
+                        var firstArray = $scope.experiments.slice(0, i);
+                        var endArray   = $scope.experiments.slice(i + 1, length)
+                        $scope.experiments = firstArray.concat(endArray);
+                    }else{
+                        $scope.experiments = $scope.experiments.slice(0, (length - 1));
+                    }
+
+
+                }
+            }
+
+
         };
 
     });

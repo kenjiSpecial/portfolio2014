@@ -1,6 +1,8 @@
 <div id="admin-exp-main-container" class="container main-container">
     <div class="row">
         <p id="experiment-alert" class="alert alert-danger" ng-class="alert" >It didn't create the new experiment form.</p>
+        <p id="experiment-created" class="alert alert-success" ng-class="created" >Created.</p>
+        <p id="experiment-update" class="alert alert-success" ng-class="updated" >Updated.</p>
     </div>
 
     <div id="create-experiment-container" class="row">
@@ -65,7 +67,7 @@
             </tr>
             </thead>
 
-            <tr ng-repeat="experiment in experiments" ng-class="experiment.edit" class="experiment">
+            <tr ng-repeat="experiment in experiments | orderBy:orderProp:reverse=true" ng-class="experiment.edit" class="experiment">
                 <td class="experiment-title">
                     <div class="view">{{experiment.title}}</div>
                     <div class="edit-input">
@@ -105,7 +107,7 @@
                     <button type="button" class="btn btn-primary btn-xs experiment-update-btn" data-id="{{ experiment._id }}" ng-click="experimentUpdate(experiment._id, experiment)">Update</button>
                 </td>
                 <td class="experiment-delete admin-experiment-list-btn">
-                    <button type="button" class="btn btn-danger btn-xs experiment-delete-btn" data-id="{{ experiment._id }}">DELETE</button>
+                    <button type="button" class="btn btn-danger btn-xs experiment-delete-btn" data-id="{{ experiment._id }}" ng-click="experimentDelete(experiment)">DELETE</button>
                 </td>
             </tr>
 
