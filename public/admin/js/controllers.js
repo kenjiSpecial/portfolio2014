@@ -31,6 +31,7 @@ angular.module('myApp.controllers', []).
         $scope.alert   = 'hide';
         $scope.created = 'hide';
         $scope.updated  = 'hide';
+        $scope.deleted  = 'hide';
 
         $scope.orderProp = 'created';
 
@@ -40,7 +41,11 @@ angular.module('myApp.controllers', []).
 
         var hideUpdated = function(){
             $scope.updated = 'hide';
-        }
+        };
+
+        var hideDelete = function(){
+            $scope.deleted  = 'hide';
+        };
 
         $scope.experimentCreate = function (title, url, date) {
             var inputStatus = false;
@@ -169,22 +174,40 @@ angular.module('myApp.controllers', []).
         $scope.experimentDelete = function(experiment){
             var id = experiment._id;
 
-            var length = $scope.experiments.length;
-            for(var i = 0; i < length; i++){
-                var $experiment = $scope.experiments[i];
-                if($experiment == experiment){
+            var urlString =  '/admin/delete-experiment/' + id;
+            $http({method: 'DELETE', url: urlString})
+                .success( function(data, status){
+                    $scope.deleted = '';
 
-                    if(i+1 < length){
-                        var firstArray = $scope.experiments.slice(0, i);
-                        var endArray   = $scope.experiments.slice(i + 1, length)
-                        $scope.experiments = firstArray.concat(endArray);
-                    }else{
-                        $scope.experiments = $scope.experiments.slice(0, (length - 1));
+                    setTimeout(function(){
+                        $scope.$apply(hideDelete);
+                    }, 3000);
+
+                    var length = $scope.experiments.length;
+                    for(var i = 0; i < length; i++){
+                        var $experiment = $scope.experiments[i];
+
+                        if($experiment == experiment){
+                            if(i+1 < length){
+                                var firstArray = $scope.experiments.slice(0, i);
+                                var endArray   = $scope.experiments.slice(i + 1, length)
+                                $scope.experiments = firstArray.concat(endArray);
+                            }else{
+                                $scope.experiments = $scope.experiments.slice(0, (length - 1));
+                            }
+                        }
+
                     }
 
+                })
+                .error( function( data, status ){
+                    console.log('error:');
+                    console.log(data);
+                    console.log(status);
+                });
 
-                }
-            }
+
+
 
 
         };

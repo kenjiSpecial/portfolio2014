@@ -75,6 +75,9 @@ app.post('/admin/create-experiment', admin.createExperiment);
 // put
 app.put('/admin/update-experiment/:id', admin.updateExperiment);
 
+// delete
+app.del('/admin/delete-experiment/:id', admin.delExperiment);
+
 
 // JSON API
 app.get('/api/name', api.name);
