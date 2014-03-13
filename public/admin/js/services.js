@@ -8,19 +8,10 @@
 angular.module('myApp.services', []).
   value('version', '0.1');
 
-/*var services = angular.module('services', ['ngResource']);
-services.factory('Data', ['$resource', function($resource){
-    return $resource('phones/', {}, {
-        query: {method: 'GET', }
-    });
-}]);*/
-/*
-var phonecatServices = angular.module('phonecatServices', ['ngResource']);
+var myAppServices = angular.module('myApp.services', ['ngResource']);
 
-phonecatServices.factory('Phone', ['$resource',
-    function($resource){
-        return $resource('phones/:phoneId.json', {}, {
-            query: {method:'GET', params:{phoneId:'phones'}, isArray:true}
-        });
+myAppServices.factory('Experiments', ['$resource', function($resource){
+    return $resource('/admin/experiment', {}, {
+        query: {method:'GET', isArray:true}
+    });
 }]);
-    */

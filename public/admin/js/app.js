@@ -5,18 +5,14 @@
 angular.module('myApp', [
         'myApp.controllers',
         'myApp.filters',
-        'myApp.services',
-        'myApp.directives'
+        'myApp.directives',
+        'myApp.services'
     ]).
     config(function ($routeProvider, $locationProvider) {
         $routeProvider.
             when('/works', {
                 templateUrl: '/admin/templates/works-view.html',
                 controller: 'worksCtrl'
-            }).
-            when('/works-create', {
-                templateUrl: '/admin/templates/works-create.html',
-                controller: 'workCreateCtrl'
             }).
             when('/experiments', {
                 templateUrl : '/admin/templates/experiment-create.html',

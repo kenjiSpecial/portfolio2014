@@ -2,214 +2,198 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-    controller('AppCtrl',function ($scope, $http) {
+var AppController = angular.module('myApp.controllers', []);
 
-        $http({
-            method: 'GET',
-            url: '/admin/experiment'
-        }).
-            success(function (data, status, headers, config) {
-                $scope.experiments = data;
-            }).
-            error(function (data, status, headers, config) {
-                $scope.name = 'Error!';
-            });
+AppController.controller('experimentCtrl', [ '$scope', '$http', 'Experiments', function($scope, $http, Experiments){
 
-    }).
-    controller('MyCtrl1',function ($scope) {
-        // write Ctrl here
-        //alert('MyCtrl1')
+    var activeClass = angular.element(document.querySelector('.active'));
+    activeClass.removeClass('active');
 
-    }).
-    controller('MyCtrl2',function ($scope) {
-        // write Ctrl here
-        //alert('MyCtrl2');
-    }).
-    controller('experimentCtrl', function ($scope, $http) {
-        var type;
-        $scope.alert   = 'hide';
+    var navSelectedClass = angular.element(document.querySelector('#admin-experiment'));
+    navSelectedClass.addClass('active');
+
+
+    $scope.experiments = Experiments.query();
+
+    var type;
+    $scope.alert   = 'hide';
+    $scope.created = 'hide';
+    $scope.updated  = 'hide';
+    $scope.deleted  = 'hide';
+
+    $scope.orderProp = 'created';
+
+    var hideCreated = function(){
         $scope.created = 'hide';
-        $scope.updated  = 'hide';
+    };
+
+    var hideUpdated = function(){
+        $scope.updated = 'hide';
+    };
+
+    var hideDelete = function(){
         $scope.deleted  = 'hide';
+    };
 
-        $scope.orderProp = 'created';
+    $scope.experimentCreate = function (title, url, date) {0
+        var inputStatus = false;
 
-        var hideCreated = function(){
-            $scope.created = 'hide';
-        };
+        if (!title) {
+            inputStatus = true;
+            $scope.alertTitle = 'has-error';
+        } else {
+            $scope.alertTitle = '';
+        }
 
-        var hideUpdated = function(){
-            $scope.updated = 'hide';
-        };
+        if (!url) {
+            inputStatus = true;
+            $scope.alertUrl = 'has-error';
+        } else {
+            $scope.alertUrl = '';
+        }
 
-        var hideDelete = function(){
-            $scope.deleted  = 'hide';
-        };
+        if (!type) {
+            inputStatus = true;
+            $scope.alertType = 'text-danger';
+        } else {
+            $scope.alertType = '';
+        }
 
-        $scope.experimentCreate = function (title, url, date) {
-            var inputStatus = false;
+        if (!date) {
+            $scope.alertDate = 'has-error';
+            inputStatus = true;
+        } else {
+            $scope.alertDate = '';
+        }
 
-            if (!title) {
-                inputStatus = true;
-                $scope.alertTitle = 'has-error';
-            } else {
-                $scope.alertTitle = '';
-            }
+        if (inputStatus) {
+            $scope.alert = 'show';
+            return;
+        } else {
+            $scope.alert = 'hide';
+        }
 
-            if (!url) {
-                inputStatus = true;
-                $scope.alertUrl = 'has-error';
-            } else {
-                $scope.alertUrl = '';
-            }
+        var created = +new Date();
+        var dataObject = {title: title, type: type, url: url, date: date, created: created};
+        $http({method: 'POST', url: '/admin/create-experiment', data: dataObject})
+            .success(function (data, status) {
+                $scope.created = '';
 
-            if (!type) {
-                inputStatus = true;
-                $scope.alertType = 'text-danger';
-            } else {
-                $scope.alertType = '';
-            }
+                $scope.url = "";
+                $scope.title = "";
+                $scope.date = "";
 
-            if (!date) {
-                $scope.alertDate = 'has-error';
-                inputStatus = true;
-            } else {
-                $scope.alertDate = '';
-            }
+                var angularType = angular.element(document.querySelector('.active'));
+                angularType.removeClass('active');
 
-            if (inputStatus) {
-                $scope.alert = 'show';
-                return;
-            } else {
-                $scope.alert = 'hide';
-            }
+                $scope.experiments.push(dataObject);
 
-            var created = +new Date();
-            var dataObject = {title: title, type: type, url: url, date: date, created: created};
-            $http({method: 'POST', url: '/admin/create-experiment', data: dataObject})
-                .success(function (data, status) {
-                    $scope.created = '';
+                setTimeout(function(){
+                    $scope.$apply(hideCreated);
+                }, 3000);
+            })
+            .error(function (data, status) {
+                // todo:: add method for post error.
+                console.log('error:');
+                console.log(data);
+                console.log(status);
+            });
+    };
 
-                    $scope.url = "";
-                    $scope.title = "";
-                    $scope.date = "";
+    $scope.toggleSiteClick = function () {
+        type = 'site';
+    };
 
-                    var angularType = angular.element(document.querySelector('.active'));
-                    angularType.removeClass('active');
+    $scope.toggleVideoClick = function () {
+        type = 'video';
+    };
 
-                    $scope.experiments.push(dataObject);
+    $scope.experimentEdit = function (id, experiment) {
+        experiment.edit = 'edit-show';
 
-                    setTimeout(function(){
-                        $scope.$apply(hideCreated);
-                    }, 3000);
-                })
-                .error(function (data, status) {
-                    // todo:: add method for post error.
-                    console.log('error:');
-                    console.log(data);
-                    console.log(status);
-                });
-        };
+        switch (experiment.type) {
+            case 'site':
+                experiment.siteType = 'active';
+                break;
+            case 'video':
+                experiment.videoType = 'active';
+                break
+        }
+    };
 
-        $scope.toggleSiteClick = function () {
-            type = 'site';
-        };
+    $scope.toggleExpSiteClick = function (experiment) {
+        console.log(experiment);
+        experiment.type = 'site';
+    };
 
-        $scope.toggleVideoClick = function () {
-            type = 'video';
-        };
+    $scope.toggleExpVideoClick = function(experiment){
+        console.log(experiment);
+        experiment.type = 'video';
+    };
 
-        $scope.experimentEdit = function (id, experiment) {
-            experiment.edit = 'edit-show';
-
-            switch (experiment.type) {
-                case 'site':
-                    experiment.siteType = 'active';
-                    break;
-                case 'video':
-                    experiment.videoType = 'active';
-                    break
-            }
-        };
-
-        $scope.toggleExpSiteClick = function (experiment) {
-            console.log(experiment);
-            experiment.type = 'site';
-        };
-
-        $scope.toggleExpVideoClick = function(experiment){
-            console.log(experiment);
-            experiment.type = 'video';
-        };
-
-        $scope.experimentUpdate = function( id, experiment){
-            var title = experiment.title;
-            var url   = experiment.url;
-            var type  = experiment.type;
-            var date  = experiment.date;
-            var created = experiment.created;
+    $scope.experimentUpdate = function( id, experiment){
+        var title = experiment.title;
+        var url   = experiment.url;
+        var type  = experiment.type;
+        var date  = experiment.date;
+        var created = experiment.created;
 
 
-            var dataObject = {title: title, type: type, url: url, date: date, created: created};
-            var urlString = '/admin/update-experiment/' + id;
-            $http({method: 'PUT', url: urlString, data: dataObject})
-                .success(function (data, status) {
-                    $scope.updated = '';
+        var dataObject = {title: title, type: type, url: url, date: date, created: created};
+        var urlString = '/admin/update-experiment/' + id;
+        $http({method: 'PUT', url: urlString, data: dataObject})
+            .success(function (data, status) {
+                $scope.updated = '';
 
-                    experiment.edit = '';
+                experiment.edit = '';
 
-                    setTimeout(function(){
-                        $scope.$apply(hideUpdated);
-                    }, 3000);
-                })
-                .error(function (data, status) {
-                    // todo:: add method for post error.
-                    console.log('error:');
-                    console.log(data);
-                    console.log(status);
-                });
-        };
+                setTimeout(function(){
+                    $scope.$apply(hideUpdated);
+                }, 3000);
+            })
+            .error(function (data, status) {
+                // todo:: add method for post error.
+                console.log('error:');
+                console.log(data);
+                console.log(status);
+            });
+    };
 
-        $scope.experimentDelete = function(experiment){
-            var id = experiment._id;
+    $scope.experimentDelete = function(experiment){
+        var id = experiment._id;
 
-            var urlString =  '/admin/delete-experiment/' + id;
-            $http({method: 'DELETE', url: urlString})
-                .success( function(data, status){
-                    $scope.deleted = '';
+        var urlString =  '/admin/delete-experiment/' + id;
+        $http({method: 'DELETE', url: urlString})
+            .success( function(data, status){
+                $scope.deleted = '';
 
-                    setTimeout(function(){
-                        $scope.$apply(hideDelete);
-                    }, 3000);
+                setTimeout(function(){
+                    $scope.$apply(hideDelete);
+                }, 3000);
 
-                    var length = $scope.experiments.length;
-                    for(var i = 0; i < length; i++){
-                        var $experiment = $scope.experiments[i];
+                var length = $scope.experiments.length;
+                for(var i = 0; i < length; i++){
+                    var $experiment = $scope.experiments[i];
 
-                        if($experiment == experiment){
-                            if(i+1 < length){
-                                var firstArray = $scope.experiments.slice(0, i);
-                                var endArray   = $scope.experiments.slice(i + 1, length)
-                                $scope.experiments = firstArray.concat(endArray);
-                            }else{
-                                $scope.experiments = $scope.experiments.slice(0, (length - 1));
-                            }
+                    if($experiment == experiment){
+                        if(i+1 < length){
+                            var firstArray = $scope.experiments.slice(0, i);
+                            var endArray   = $scope.experiments.slice(i + 1, length)
+                            $scope.experiments = firstArray.concat(endArray);
+                        }else{
+                            $scope.experiments = $scope.experiments.slice(0, (length - 1));
                         }
-
                     }
 
-                })
-                .error( function( data, status ){
-                    console.log('error:');
-                    console.log(data);
-                    console.log(status);
-                });
+                }
+
+            })
+            .error( function( data, status ){
+                console.log('error:');
+                console.log(data);
+                console.log(status);
+            });
 
 
-
-
-
-        };
-
-    });
+    };
+}]);
