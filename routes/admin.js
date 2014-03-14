@@ -23,6 +23,17 @@ exports.getExperiment = function(req, res){
     });
 };
 
+exports.getWorks = function(req, res){
+    var experimentCollection = db.get('works');
+    experimentCollection.find({}, {}, function(e, docs){
+        res.json(docs);
+    });
+};
+
+exports.getCreateWork = function(req, res){
+
+};
+
 /**
  * POST
  */

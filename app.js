@@ -68,6 +68,8 @@ app.get('/partials/:name', routes.partials);
 // get
 app.get('/admin', admin.index);
 app.get('/admin/experiment', admin.getExperiment);
+app.get('/admin/works', admin.getWorks);
+app.get('/admin/work-create', admin.getCreateWork);
 
 // post
 app.post('/admin/create-experiment', admin.createExperiment);

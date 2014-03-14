@@ -4,6 +4,10 @@
 
 var AppController = angular.module('myApp.controllers', []);
 
+/**
+ *  experimentCtrl
+ */
+
 AppController.controller('experimentCtrl', [ '$scope', '$http', 'Experiments', function($scope, $http, Experiments){
 
     var activeClass = angular.element(document.querySelector('.active'));

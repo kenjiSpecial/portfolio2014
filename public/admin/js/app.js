@@ -4,6 +4,7 @@
 
 angular.module('myApp', [
         'myApp.controllers',
+        'myApp.workControllers',
         'myApp.filters',
         'myApp.directives',
         'myApp.services'
@@ -13,6 +14,10 @@ angular.module('myApp', [
             when('/works', {
                 templateUrl: '/admin/templates/works-view.html',
                 controller: 'worksCtrl'
+            }).
+            when('/work-create', {
+                templateUrl : '/admin/templates/work-create.html',
+                controller  : 'workCreateCtrl'
             }).
             when('/experiments', {
                 templateUrl : '/admin/templates/experiment-create.html',
