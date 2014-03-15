@@ -20,10 +20,13 @@ AppWorkController.controller('worksCtrl', [ '$scope', '$http', 'Works', function
 
 AppWorkController.controller('workCreateCtrl', ['$scope', '$http', function($scope, $http){
     var activeClass = angular.element(document.querySelector('.active'));
-    activeClass.removeClass('active');
+   activeClass.removeClass('active');
 
     var navSelectedClass = angular.element(document.querySelector('#admin-works'));
     navSelectedClass.addClass('active');
 
-    
+    $scope.years = [ 2010, 2011, 2012, 2013, 2014 ];
+    $scope.year = $scope.years[0];
+
+
 }]);

@@ -1,12 +1,60 @@
 <div id="admin-work-create-container" class="container main-container">
 
     <div id="admin-create-work-container" class="row">
-        <div class="col-md-12 create-work-cols">
-            <a href="#/work-create" id="create-work"><button type="button" class="btn btn-primary work-create-btn">CREATE</button></a>
+        <div class="col-md-3 create-work-cols">
+            <div class="admin-main-image">
+                <p>Main Image</p>
+
+                <div class="create">
+                    <img src="/images/dummy/thumbnail.jpg" alt="" class="img-thumbnail img-responsive"/>
+                </div>
+                <p>recommended site 1024 * 768</p>
+            </div>
+            <div class="admin-thumbnail-image">
+                <p>Thumbnail</p>
+                <div class="create">
+                    <img src="/images/dummy/thumbnail.jpg" alt="" class="img-thumbnail img-responsive"/>
+                </div>
+                <p>recommended site 1024 * 768</p>
+            </div>
+
         </div>
+
+        <div class="col-md-3 create-work-cols">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Title</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+            </div>
+
+            <div class="form-group">
+                <label for="workInputUrl">URL</label>
+                <input type="text" class="form-control" id="workInputUrl" placeholder="Enter URL">
+            </div>
+
+            <div class="from-group">
+               <label>YEAR</label>
+                <select ng-model="year" class="form-control" ng-options="year for year in years">
+                </select>
+            </div>
+
+
+
+        </div>
+
+        <div class="col-md-6 create-work-cols" style="background: #0000ff;">
+            <p>test</p>
+
+            <div class="col-md-6 create-work-cols" style="background: #ff0000;">
+                ne
+            </div>
+
+            <div class="col-md-6 create-work-cols" style="background: #ffff00;">
+                <p>nested test</p>
+            </div>
+        </div>
+
+
     </div>
 
-    <div id="admin-create-work-list-container" class="row">
 
-    </div>
 </div>
