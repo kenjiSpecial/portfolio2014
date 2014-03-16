@@ -6,7 +6,29 @@ $DEFAULT_COLOR: #898989;
     margin-bottom: 50px;
   }
 
+  label{
+    font-weight: 400;
+  }
+
   .form-group{
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+
+    button {
+      margin-bottom : 12px;
+      margin-right  : 10px;
+
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+
+    .bt-container{
+      overflow: hidden;
+      button{
+        margin: 0;
+        float: right;
+      }
+    }
+
   }
 }

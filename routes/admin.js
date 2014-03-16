@@ -30,9 +30,6 @@ exports.getWorks = function(req, res){
     });
 };
 
-exports.getCreateWork = function(req, res){
-
-};
 
 /**
  * POST
@@ -64,6 +61,33 @@ exports.createExperiment = function(req, res){
     });
 
 };
+
+exports.createWork = function(req, res){
+    console.log(req.body);
+
+
+    var collection = db.get('works');
+    collection.insert({
+        title  : req.body.title,
+        year   : req.body.year,
+        type   : req.body.type,
+        medium : req.body.medium,
+        technologies : req.body.technologies,
+        client : req.body.client,
+        agency : req.body.agency,
+        description : req.body.description
+    }, function(err, doc){
+        if(err){
+            console.log('error');
+        }else{
+            res.send( req.body );
+        }
+    });
+};
+
+/**
+ *  PUT
+ */
 
 exports.updateExperiment = function(req, res){
     var id = req.params.id;

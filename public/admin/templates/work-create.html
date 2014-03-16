@@ -1,6 +1,12 @@
 <div id="admin-work-create-container" class="container main-container">
+    <div class="row" ng-class="{hide:!isAlert}">
+        <div class="col-md-12">
+            <p id="experiment-alert" class="alert alert-danger" ng-class="alert" >It didn't create the new experiment form.</p>
+        </div>
+    </div>
 
     <div id="admin-create-work-container" class="row">
+
         <div class="col-md-3 create-work-cols">
             <div class="admin-main-image">
                 <p>Main Image</p>
@@ -21,38 +27,91 @@
         </div>
 
         <div class="col-md-3 create-work-cols">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Title</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+            <div class="form-group" ng-class="{'has-error':isTitleError}">
+                <label for="exampleInputEmail1" class="control-label">Title</label>
+                <input ng-model="title" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Title">
             </div>
 
-            <div class="form-group">
-                <label for="workInputUrl">URL</label>
-                <input type="text" class="form-control" id="workInputUrl" placeholder="Enter URL">
+            <div class="form-group" ng-class="{'has-error':isUrlError}">
+                <label for="workInputUrl" class="control-label">URL</label>
+                <input ng-model='url' type="text" class="form-control" id="workInputUrl" placeholder="Enter URL">
             </div>
 
-            <div class="from-group">
-               <label>YEAR</label>
+            <div class="form-group" ng-class="{'has-error': isYearError}">
+               <label class="control-label">YEAR</label>
                 <select ng-model="year" class="form-control" ng-options="year for year in years">
                 </select>
             </div>
 
+            <div class="form-group">
+                <label class="control-label">TYPE</label>
+                <select ng-model="type" class="form-control" ng-options="type for type in types">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">MEDIUM</label>
+                <select ng-model="medium" class="form-control" ng-options="medium for medium in mediums">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label class="control-label">Technology</label>
+                </div>
+
+                <button class="btn btn-default btn-xs" ng-click="technologyToggle()" ng-class="{active:technology.type}" ng-repeat="technology in technologies">{{technology.label}}</button>
+            </div>
 
 
         </div>
 
-        <div class="col-md-6 create-work-cols" style="background: #0000ff;">
-            <p>test</p>
+        <div class="col-md-6 create-work-cols">
+            <div class="form-group">
+                <div>
+                    <label class="control-label">Agency</label>
+                </div>
 
-            <div class="col-md-6 create-work-cols" style="background: #ff0000;">
-                ne
+                <div class="row">
+                    <div class="col-md-6 col-md-left" >
+                        <input type="text" class="form-control" placeholder="Enter Agency" ng-model="agency.name">
+                    </div>
+
+                    <div class="col-md-6 col-md-right">
+                        <input type="text" class="form-control" placeholder="Enter URL" ng-model="agency.url">
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-6 create-work-cols" style="background: #ffff00;">
-                <p>nested test</p>
+            <div class="form-group">
+                <div>
+                    <label class="control-label">Client</label>
+
+                    <div class="row">
+                        <div class="col-md-6 col-md-left" >
+                            <input type="text" class="form-control" placeholder="Enter Client" ng-model="client.name">
+                        </div>
+
+                        <div class="col-md-6 col-md-right">
+                            <input type="text" class="form-control" placeholder="Enter URL" ng-model="client.url">
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="form-group" ng-class="{'has-error': isDescriptionError}">
+                <label for="inputDescription" class="control-label">Description</label>
+
+                <textarea class="form-control" id="inputDescription" rows="10" ng-model="description"></textarea>
+            </div>
+
+            <div class="form-group" >
+                <div class="bt-container">
+                    <button type="button" class="btn btn-primary" ng-click="workCreate()">CREATE</button>
+                </div>
+            </div>
+
         </div>
-
 
     </div>
 

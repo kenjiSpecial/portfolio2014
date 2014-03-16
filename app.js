@@ -73,6 +73,7 @@ app.get('/admin/work-create', admin.getCreateWork);
 
 // post
 app.post('/admin/create-experiment', admin.createExperiment);
+app.post('/admin/create-work', admin.createWork);
 
 // put
 app.put('/admin/update-experiment/:id', admin.updateExperiment);
