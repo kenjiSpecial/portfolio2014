@@ -1,7 +1,45 @@
 $DEFAULT_COLOR: #898989;
 
+#admin-work-list-container{
+  .row{
+    margin-bottom: 100px;
+  }
+
+  .create-work-col{
+    margin-top: 40px;
+  }
+
+  .work-col{
+    margin-bottom: 90px;
+  }
+
+  .img{
+    margin-bottom: 10px;
+  }
+
+  .title{
+    color: $DEFAULT_COLOR;
+    font-size: 18px;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 20px;
+  }
+
+  .bt-container{
+    overflow: hidden;
+    button{
+      float: right;
+    }
+    &.update-bt{
+      margin-bottom: 10px;
+    }
+  }
+}
+
 #admin-work-create-container{
+  margin-bottom: 60px;
   color: $DEFAULT_COLOR;
+
   .admin-main-image{
     margin-bottom: 50px;
   }

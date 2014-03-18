@@ -69,6 +69,7 @@ app.get('/partials/:name', routes.partials);
 app.get('/admin', admin.index);
 app.get('/admin/experiment', admin.getExperiment);
 app.get('/admin/works', admin.getWorks);
+app.get('/admin/work/:workId', admin.getWork);
 app.get('/admin/work-create', admin.getCreateWork);
 
 // post
@@ -77,9 +78,11 @@ app.post('/admin/create-work', admin.createWork);
 
 // put
 app.put('/admin/update-experiment/:id', admin.updateExperiment);
+app.put('/admin/update-work/:id', admin.updateWork);
 
 // delete
 app.del('/admin/delete-experiment/:id', admin.delExperiment);
+app.del('/admin/delete-work/:id', admin.delWork);
 
 
 // JSON API

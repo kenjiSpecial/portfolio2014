@@ -27,3 +27,9 @@ myAppServices.factory('Works', ['$resource', function($resource){
 
 
 }]);
+
+myAppServices.factory('Work', ['$resource', function($resource){
+    return $resource('/admin/work/:workId', {}, {
+        getJson : { method: 'GET', isArray:true}
+    });
+}]);

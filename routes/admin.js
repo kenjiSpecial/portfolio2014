@@ -30,6 +30,22 @@ exports.getWorks = function(req, res){
     });
 };
 
+exports.getWork = function(req, res){
+    //console.log(req);
+    var workId = req.params.workId;
+    var workCollection = db.get('works');
+
+    workCollection.find({_id: workId}, {}, function(e, docs){
+        console.log(docs);
+        res.json(docs);
+    });
+
+    //res.render('admin/index');
+}
+
+exports.getCreateWork = function(req, res){
+    console.log('getCreateWork')
+};
 
 /**
  * POST
@@ -69,6 +85,7 @@ exports.createWork = function(req, res){
     var collection = db.get('works');
     collection.insert({
         title  : req.body.title,
+        url    : req.body.url,
         year   : req.body.year,
         type   : req.body.type,
         medium : req.body.medium,
@@ -104,6 +121,21 @@ exports.updateExperiment = function(req, res){
     });
 };
 
+exports.updateWork = function(req, res){
+    var id = req.params.id;
+    var post = req.body;
+
+    var collection = db.get('works');
+
+    collection.update({'_id': id}, post, function(err, result){
+        if(err){
+            res.send({'error':'An error has occurred - ' + err});
+        }else{
+            res.send( req.body );
+        }
+    });
+};
+
 /**
  *  DELETE
  */
@@ -118,5 +150,21 @@ exports.delExperiment = function(req, res){
         } else {
             res.send(req.body);
         }
+    });
+}
+
+exports.delWork = function(req, res){
+    var id = req.params.id;
+    var collection = db.get('works');
+    console.log(id);
+
+    collection.remove({_id: id}, {safe: true}, function(err, result){
+        if(err){
+            res.send({'error' : 'An error has occurred - ' + err});
+        }else{
+            //res.redirect('/admin')
+            res.send(req.body);
+        }
+
     });
 }

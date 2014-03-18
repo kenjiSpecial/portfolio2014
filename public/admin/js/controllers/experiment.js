@@ -182,7 +182,7 @@ AppController.controller('experimentCtrl', [ '$scope', '$http', 'Experiments', f
                     if($experiment == experiment){
                         if(i+1 < length){
                             var firstArray = $scope.experiments.slice(0, i);
-                            var endArray   = $scope.experiments.slice(i + 1, length)
+                            var endArray   = $scope.experiments.slice(i + 1, length);
                             $scope.experiments = firstArray.concat(endArray);
                         }else{
                             $scope.experiments = $scope.experiments.slice(0, (length - 1));

@@ -19,6 +19,10 @@ angular.module('myApp', [
                 templateUrl : '/admin/templates/work-create.html',
                 controller  : 'workCreateCtrl'
             }).
+            when('/work-update/:workId', {
+                templateUrl : '/admin/templates/work-create.html',
+                controller  : 'workUpdateCtrl'
+            }).
             when('/experiments', {
                 templateUrl : '/admin/templates/experiment-create.html',
                 controller  : 'experimentCtrl'
