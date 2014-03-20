@@ -47,13 +47,18 @@ exports.getCreateWork = function(req, res){
     console.log('getCreateWork')
 };
 
+exports.getHome = function(req, res){
+    var homeCollection = db.get('home');
+    homeCollection.find({}, {}, function(e, docs){
+        res.json(docs);
+    });
+}
+
 /**
  * POST
  */
 
-
 exports.createExperiment = function(req, res){
-    console.log(req.body);
     var experimentTitle   = req.body.title;
     var experimentURL     = req.body.url;
     var experimentType    = req.body.type;
@@ -79,9 +84,6 @@ exports.createExperiment = function(req, res){
 };
 
 exports.createWork = function(req, res){
-    console.log(req.body);
-
-
     var collection = db.get('works');
     collection.insert({
         title  : req.body.title,
@@ -92,7 +94,8 @@ exports.createWork = function(req, res){
         technologies : req.body.technologies,
         client : req.body.client,
         agency : req.body.agency,
-        description : req.body.description
+        description : req.body.description,
+        created : req.body.created
     }, function(err, doc){
         if(err){
             console.log('error');
@@ -101,6 +104,22 @@ exports.createWork = function(req, res){
         }
     });
 };
+
+exports.createHome = function(req, res){
+    var collection = db.get('home');
+    collection.insert({
+        type        : req.body.type,
+        description : req.body.description,
+        created     : req.body.created
+    }, function(err, doc){
+        if(err){
+            console.log('error');
+        }else{
+            res.send(req.body);
+        }
+    });
+};
+
 
 /**
  *  PUT
@@ -136,6 +155,22 @@ exports.updateWork = function(req, res){
     });
 };
 
+exports.updateHome = function(req, res){
+    var id = req.params.id;
+    var post = req.body;
+    console.log(post);
+
+    var collection = db.get('home');
+
+    collection.update({'_id' : id}, post, function(err, result){
+        if(err){
+            res.send({'error':'An error has occurred - ' + err});
+        }else{
+            res.send(req.body);
+        }
+    });
+};
+
 /**
  *  DELETE
  */
@@ -156,15 +191,25 @@ exports.delExperiment = function(req, res){
 exports.delWork = function(req, res){
     var id = req.params.id;
     var collection = db.get('works');
-    console.log(id);
 
     collection.remove({_id: id}, {safe: true}, function(err, result){
         if(err){
             res.send({'error' : 'An error has occurred - ' + err});
         }else{
-            //res.redirect('/admin')
             res.send(req.body);
         }
-
     });
 }
+
+exports.delHome = function(req, res){
+    var id = req.params.id;
+    var collection = db.get('home');
+
+    collection.remove({_id: id}, {safe: true}, function(err, result){
+        if(err){
+            res.send({'error' : 'An error has occurred - ' + err});
+        }else{
+            res.send(req.body);
+        }
+    });
+};

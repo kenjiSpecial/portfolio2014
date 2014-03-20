@@ -7,7 +7,7 @@
     </div>
 
     <div id="admin-create-work-list-container" class="row">
-        <div class="col-md-3 work-col" ng-repeat="work in works" >
+        <div class="col-md-3 work-col" ng-repeat="work in works | orderBy:orderProp:reverse=true" >
             <div class="img">
                 <img src="/images/dummy/thumbnail.jpg" alt="" class="img-thumbnail img-responsive"/>
             </div>

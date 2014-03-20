@@ -1,0 +1,54 @@
+<div class="container main-container default-container">
+
+    <div class="row row-updates">
+
+        <div class="col-md-12">
+            <p class="alert alert-success" ng-class="{hide:!isAlertUpdate}">Updated.</p>
+        </div>
+
+        <div class="col-md-12 row-update" ng-repeat="sample in samples">
+             <div class="col-md-2">
+                <form class="form-group">
+                    <input type="text" class="form-control" ng-model="sample.type" placeholder="type"/>
+                </form>
+            </div>
+
+            <div class="col-md-8 col-text">
+                <textarea class="form-control" id="inputDescription" rows="3" ng-model="sample.description"></textarea>
+            </div>
+
+            <div class="col-md-1">
+                <button type="button" class="btn btn-primary" ng-click="update()">Update</button>
+            </div>
+
+            <div class="col-md-1">
+                <button type="button" class="btn btn-danger" ng-click="delete()">DELETE</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-class="{hide:!isAlert}">
+        <div class="col-md-12">
+            <p class="alert alert-danger" ng-class="{hide:!isAlertError}">Fill the form.</p>
+
+            <p class="alert alert-success" ng-class="{hide:!isAlertCreate}">Created.</p>
+        </div>
+    </div>
+
+    <div class="row row-create">
+        <div class="col-md-2">
+            <form class="form-group">
+                <input type="text" class="form-control" ng-model="type" placeholder="type"/>
+            </form>
+        </div>
+
+        <div class="col-md-8 col-text">
+            <textarea class="form-control" rows="3" ng-model="description"></textarea>
+        </div>
+
+        <div class="col-md-2 col-button button-create">
+            <button type="button" class="btn btn-primary" ng-click="create()">Create</button>
+        </div>
+    </div>
+
+</div>

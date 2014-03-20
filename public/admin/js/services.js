@@ -33,3 +33,13 @@ myAppServices.factory('Work', ['$resource', function($resource){
         getJson : { method: 'GET', isArray:true}
     });
 }]);
+
+/**
+ *  'Home'
+ */
+
+myAppServices.factory('Home', ['$resource' ,function($resource){
+    return $resource('/admin/home', {}, {
+        query: { method:'GET', isArray:true }
+    });
+}]);

@@ -3,14 +3,24 @@
 // Declare app level module which depends on filters, and services
 
 angular.module('myApp', [
-        'myApp.controllers',
+        'myApp.experimentControllers',
         'myApp.workControllers',
+        'myApp.homeControllers',
+        'myApp.aboutControllers',
         'myApp.filters',
         'myApp.directives',
         'myApp.services'
     ]).
     config(function ($routeProvider, $locationProvider) {
         $routeProvider.
+            when('/', {
+                templateUrl: '/admin/templates/home.html',
+                controller : 'homeCtrl'
+            }).
+            when('/about', {
+                templateUrl: '/admin/templates/about.html',
+                controller : 'aboutCtrl'
+            }).
             when('/works', {
                 templateUrl: '/admin/templates/works-view.html',
                 controller: 'worksCtrl'
@@ -28,7 +38,7 @@ angular.module('myApp', [
                 controller  : 'experimentCtrl'
             }).
             otherwise({
-                redirectTo: '/experiments'
+                redirectTo: '/'
             });
 
         $locationProvider.html5Mode(false);

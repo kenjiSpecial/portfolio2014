@@ -14,10 +14,9 @@ AppWorkController.controller('worksCtrl', [ '$scope', '$http', 'Works', function
     navSelectedClass.addClass('active');
 
     $scope.works = Works.query();
+    $scope.orderProp = 'created';
 
     $scope.workDelete = function(id){
-        console.log(id);
-        console.log(this);
         var index = this.$index;
 
         var urlString = '/admin/delete-work/' + id;
@@ -26,17 +25,17 @@ AppWorkController.controller('worksCtrl', [ '$scope', '$http', 'Works', function
             .success(function(){
                 if($scope.works.length == (index + 1)){
                    $scope.works = $scope.works.slice(0, index);
+                }else if(index === 0){
+                    $scope.works = $scope.works.slice(1, $scope.works.length);
                 }else{
                     var firstArray = $scope.works(0, index);
-                    var endArray   = $scope.works(0, $scope.works.length);
+                    var endArray   = $scope.works( (index + 1), $scope.works.length);
                     $scope.works   = firstArray.concat(endArray);
                 }
             })
             .error(function(date, status){
-                //alert('error');
                 console.log('error');
             });
-
     }
 
 }]);
@@ -49,6 +48,7 @@ AppWorkController.controller('workCreateCtrl', ['$scope', '$http', '$location', 
     // initialize the value
     $scope.agency = {};
     $scope.client = {};
+    $scope.buttonName = 'Create';
 
     var activeClass = angular.element(document.querySelector('.active'));
    activeClass.removeClass('active');
@@ -120,7 +120,7 @@ AppWorkController.controller('workCreateCtrl', ['$scope', '$http', '$location', 
             return;
         }else
             $scope.isAlert = false;
-
+        var created = +new Date();
 
         var data = {
             title: title,
@@ -131,7 +131,8 @@ AppWorkController.controller('workCreateCtrl', ['$scope', '$http', '$location', 
             technologies : technologies,
             client : client,
             agency : agency,
-            description : description
+            description : description,
+            created     : created
         };
 
         $http({method: 'POST', url: '/admin/create-work', data: data})
@@ -154,8 +155,9 @@ AppWorkController.controller('workCreateCtrl', ['$scope', '$http', '$location', 
 
 AppWorkController.controller('workUpdateCtrl', ['$scope', '$routeParams', '$http', '$location', 'Work', function($scope, $routeParams, $http, $location, Work){
     var workId = $routeParams.workId;
-
     var technologyList = ['JavaScript', 'C++', 'Objective C'];
+    $scope.buttonName = 'Update';
+
     $scope.work   = Work.getJson({workId: workId}, function(data){
         var workData = data[0];
         var technologies = workData.technologies;
@@ -172,7 +174,7 @@ AppWorkController.controller('workUpdateCtrl', ['$scope', '$routeParams', '$http
         for(var i = 0; i < technologies.length; i++){
             technology = technologies[i];
             indexOfTechnology = technologyList.indexOf(technology);
-            if(indexOfTechnology > 0) $scope.technologies[indexOfTechnology].type = true;
+            if(indexOfTechnology >= 0) $scope.technologies[indexOfTechnology].type = true;
         }
 
         $scope.agency.name = workData.agency.name;

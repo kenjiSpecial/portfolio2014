@@ -2,13 +2,13 @@
 
 /* Controllers */
 
-var AppController = angular.module('myApp.controllers', []);
+var ExperimentController = angular.module('myApp.experimentControllers', []);
 
 /**
  *  experimentCtrl
  */
 
-AppController.controller('experimentCtrl', [ '$scope', '$http', 'Experiments', function($scope, $http, Experiments){
+ExperimentController.controller('experimentCtrl', [ '$scope', '$http', 'Experiments', function($scope, $http, Experiments){
 
     var activeClass = angular.element(document.querySelector('.active'));
     activeClass.removeClass('active');
