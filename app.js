@@ -68,6 +68,7 @@ app.get('/partials/:name', routes.partials);
 // get
 app.get('/admin', admin.index);
 app.get('/admin/home', admin.getHome);
+app.get('/admin/about', admin.getAbout);
 app.get('/admin/experiment', admin.getExperiment);
 app.get('/admin/works', admin.getWorks);
 app.get('/admin/work/:workId', admin.getWork);
@@ -77,16 +78,19 @@ app.get('/admin/work-create', admin.getCreateWork);
 app.post('/admin/create-experiment', admin.createExperiment);
 app.post('/admin/create-work', admin.createWork);
 app.post('/admin/create-home', admin.createHome);
+app.post('/admin/create-about', admin.createAbout);
 
 // put
 app.put('/admin/update-experiment/:id', admin.updateExperiment);
 app.put('/admin/update-work/:id', admin.updateWork);
 app.put('/admin/update-home/:id', admin.updateHome);
+app.put('/admin/update-about/:id', admin.updateAbout);
 
 // delete
 app.del('/admin/delete-experiment/:id', admin.delExperiment);
 app.del('/admin/delete-work/:id', admin.delWork);
 app.del('/admin/delete-home/:id', admin.delHome);
+app.del('/admin/delete-about/:id', admin.delAbout);
 
 
 // JSON API

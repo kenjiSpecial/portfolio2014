@@ -18,7 +18,7 @@ angular.module('myApp', [
                 controller : 'homeCtrl'
             }).
             when('/about', {
-                templateUrl: '/admin/templates/about.html',
+                templateUrl: '/admin/templates/home.html',
                 controller : 'aboutCtrl'
             }).
             when('/works', {

@@ -43,3 +43,13 @@ myAppServices.factory('Home', ['$resource' ,function($resource){
         query: { method:'GET', isArray:true }
     });
 }]);
+
+/**
+ *  'About'
+ */
+
+myAppServices.factory('About', ['$resource', function($resource){
+    return $resource('/admin/about', {}, {
+        query: { method:'GET', isArray: true}
+    });
+}]);

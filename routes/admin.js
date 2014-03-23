@@ -39,8 +39,6 @@ exports.getWork = function(req, res){
         console.log(docs);
         res.json(docs);
     });
-
-    //res.render('admin/index');
 }
 
 exports.getCreateWork = function(req, res){
@@ -52,7 +50,14 @@ exports.getHome = function(req, res){
     homeCollection.find({}, {}, function(e, docs){
         res.json(docs);
     });
-}
+};
+
+exports.getAbout = function(req, res){
+    var aboutCollection = db.get('about');
+    aboutCollection.find({}, {}, function(e, docs){
+        res.json(docs);
+    });
+};
 
 /**
  * POST
@@ -120,6 +125,21 @@ exports.createHome = function(req, res){
     });
 };
 
+exports.createAbout = function(req, res){
+    var collection = db.get('about');
+    collection.insert({
+        type        : req.body.type,
+        description : req.body.description,
+        created     : req.body.created
+    }, function(err, doc){
+        if(err){
+            console.log('error');
+        }else{
+            res.send(req.body);
+        }
+    });
+}
+
 
 /**
  *  PUT
@@ -171,6 +191,22 @@ exports.updateHome = function(req, res){
     });
 };
 
+exports.updateAbout = function(req, res){
+    var id = req.params.id;
+    var post = req.body;
+    console.log(post);
+
+    var collection = db.get('about');
+
+    collection.update({'_id' : id}, post, function(err, result){
+        if(err){
+            res.send({'error':'An error has occurred - ' + err});
+        }else{
+            res.send(req.body);
+        }
+    });
+};
+
 /**
  *  DELETE
  */
@@ -204,6 +240,20 @@ exports.delWork = function(req, res){
 exports.delHome = function(req, res){
     var id = req.params.id;
     var collection = db.get('home');
+
+    collection.remove({_id: id}, {safe: true}, function(err, result){
+        if(err){
+            res.send({'error' : 'An error has occurred - ' + err});
+        }else{
+            res.send(req.body);
+        }
+    });
+};
+
+
+exports.delAbout = function(req, res){
+    var id = req.params.id;
+    var collection = db.get('about');
 
     collection.remove({_id: id}, {safe: true}, function(err, result){
         if(err){
