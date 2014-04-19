@@ -8,6 +8,7 @@
     <div id="admin-create-work-container" class="row">
 
         <div class="col-md-3 create-work-cols">
+            <!--
             <div class="admin-main-image">
                 <p>Main Image</p>
 
@@ -16,6 +17,7 @@
                 </div>
                 <p>recommended site 1024 * 768</p>
             </div>
+
             <div class="admin-thumbnail-image">
                 <p>Thumbnail</p>
                 <div class="create">
@@ -23,10 +25,8 @@
                 </div>
                 <p>recommended site 1024 * 768</p>
             </div>
+            -->
 
-        </div>
-
-        <div class="col-md-3 create-work-cols">
             <div class="form-group" ng-class="{'has-error':isTitleError}">
                 <label for="exampleInputEmail1" class="control-label">Title</label>
                 <input ng-model="title" type="text" class="form-control" id="exampleInputEmail1" value="John" placeholder="Enter Title">
@@ -36,6 +36,15 @@
                 <label for="workInputUrl" class="control-label">URL</label>
                 <input ng-model='url' type="text" class="form-control" id="workInputUrl" placeholder="Enter URL">
             </div>
+
+            <div class="form-group" ng-class="{'has-error':isImageUrlError}">
+                <label for="workInputUrl" class="control-label">Image URL</label>
+                <input ng-model='imageUrl' type="text" class="form-control" id="workInputImageUrl" placeholder="Enter URL">
+            </div>
+
+        </div>
+
+        <div class="col-md-3 create-work-cols">
 
             <div class="form-group" ng-class="{'has-error': isYearError}">
                <label class="control-label">YEAR</label>

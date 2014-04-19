@@ -84,6 +84,7 @@ AppWorkController.controller('workCreateCtrl', ['$scope', '$http', '$location', 
 
         var title  = check($scope.title);
         var url    = check($scope.url);
+        var imageUrl = check($scope.imageUrl);
         var year   = $scope.year;
         var type   = $scope.type;
         var medium = $scope.medium;
@@ -101,6 +102,9 @@ AppWorkController.controller('workCreateCtrl', ['$scope', '$http', '$location', 
 
         if(!url) $scope.isUrlError = true;
         else     $scope.isUrlError = false;
+
+        if(!imageUrl) $scope.isImageUrlError = true;
+        else          $scope.isImageUrlError = false;
 
         if(!medium) $scope.isMediumError = true;
         else        $scope.isMediumError = false;
@@ -125,6 +129,7 @@ AppWorkController.controller('workCreateCtrl', ['$scope', '$http', '$location', 
         var data = {
             title: title,
             url  : url,
+            imageUrl : imageUrl,
             year : year,
             type : type,
             medium : medium,
@@ -167,6 +172,7 @@ AppWorkController.controller('workUpdateCtrl', ['$scope', '$routeParams', '$http
 
         $scope.title = workData.title;
         $scope.url = workData.url;
+        $scope.imageUrl = workData.imageUrl;
         $scope.year = workData.year;
         $scope.type = workData.type;
         $scope.medium = workData.medium;
@@ -222,6 +228,7 @@ AppWorkController.controller('workUpdateCtrl', ['$scope', '$routeParams', '$http
 
         var title  = check($scope.title);
         var url    = check($scope.url);
+        var imageUrl = check($scope.imageUrl);
         var year   = $scope.year;
         var type   = $scope.type;
         var medium = $scope.medium;
@@ -239,6 +246,9 @@ AppWorkController.controller('workUpdateCtrl', ['$scope', '$routeParams', '$http
 
         if(!url) $scope.isUrlError = true;
         else     $scope.isUrlError = false;
+
+        if(!imageUrl) $scope.isImageUrlError = true;
+        else          $scope.isImageUrlError = false;
 
         if(!medium) $scope.isMediumError = true;
         else        $scope.isMediumError = false;
@@ -263,6 +273,7 @@ AppWorkController.controller('workUpdateCtrl', ['$scope', '$routeParams', '$http
         var data = {
             title: title,
             url  : url,
+            imageUrl : imageUrl,
             year : year,
             type : type,
             medium : medium,

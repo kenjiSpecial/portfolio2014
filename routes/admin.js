@@ -1,10 +1,11 @@
 /**
  * initializing
  */
+var database =require('../config/database');
 
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/appSample01');
+var db = monk(database.url);
 
 
 /**
@@ -92,6 +93,7 @@ exports.createWork = function(req, res){
     var collection = db.get('works');
     collection.insert({
         title  : req.body.title,
+        imageUrl:req.body.imageUrl,
         url    : req.body.url,
         year   : req.body.year,
         type   : req.body.type,

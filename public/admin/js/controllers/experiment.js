@@ -39,7 +39,7 @@ ExperimentController.controller('experimentCtrl', [ '$scope', '$http', 'Experime
         $scope.deleted  = 'hide';
     };
 
-    $scope.experimentCreate = function (title, url, date) {0
+    $scope.experimentCreate = function (title, url, date) {
         var inputStatus = false;
 
         if (!title) {
